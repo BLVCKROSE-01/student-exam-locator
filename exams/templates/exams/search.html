@@ -1,0 +1,23 @@
+<h1>Find Your Exam</h1>
+<form method="get">
+    <input type="text" name="q" placeholder="Enter course code" value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+{% if query %}
+    {% if exams %}
+    <table border="1" cellpadding="8">
+        <tr><th>Course</th><th>Date</th><th>Time</th><th>Venue</th></tr>
+        {% for exam in exams %}
+        <tr>
+            <td>{{ exam.course.code }} - {{ exam.course.name }}</td>
+            <td>{{ exam.date }}</td>
+            <td>{{ exam.start_time }} - {{ exam.end_time }}</td>
+            <td>{{ exam.venue.building }}, Room {{ exam.venue.room }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p>No exams found for "{{ query }}".</p>
+    {% endif %}
+{% endif %}

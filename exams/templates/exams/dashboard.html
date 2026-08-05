@@ -1,0 +1,20 @@
+<h1>My Upcoming Exams</h1>
+{% if exams %}
+<table border="1" cellpadding="8">
+    <tr><th>Course</th><th>Date</th><th>Time</th><th>Venue</th></tr>
+    {% for exam in exams %}
+    <tr>
+        <td>{{ exam.course.code }} - {{ exam.course.name }}</td>
+        <td>{{ exam.date }}</td>
+        <td>{{ exam.start_time }} - {{ exam.end_time }}</td>
+        <td>{{ exam.venue.building }}, Room {{ exam.venue.room }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>You have no upcoming exams on record.</p>
+{% endif %}
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Log Out</button>
+</form>
