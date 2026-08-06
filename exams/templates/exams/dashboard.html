@@ -1,8 +1,7 @@
 {% extends "exams/base.html" %}
 {% block title %}My Exams — Exam Locator{% endblock %}
 {% block content %}
-  <div class="eyebrow">My Schedule</div>
-  <h1 class="page-title">Upcoming exams</h1>
+  <h1 class="page-title">My exams</h1>
   <p class="page-sub">Everything you're enrolled in, soonest first.</p>
 
   {% if exams %}
@@ -27,7 +26,6 @@
     </div>
   {% else %}
     <div class="empty-state">
-      <span class="big">Nothing scheduled</span>
       You have no upcoming exams on record. If this looks wrong, check with your exam administrator.
     </div>
   {% endif %}

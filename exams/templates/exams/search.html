@@ -1,9 +1,8 @@
 {% extends "exams/base.html" %}
 {% block title %}Find Your Exam — Exam Locator{% endblock %}
 {% block content %}
-  <div class="eyebrow">Public Lookup</div>
   <h1 class="page-title">Find your exam</h1>
-  <p class="page-sub">Search by course code to see the date, time, and room — no account needed.</p>
+  <p class="page-sub">Search by course code — no login needed.</p>
 
   <form method="get" class="search-panel">
     <input type="text" name="q" placeholder="e.g. CSBC252" value="{{ query }}" autofocus>
@@ -20,7 +19,7 @@
           <div>Venue</div>
         </div>
         {% for exam in exams %}
-      <div class="cell-time">{{ exam.start_time }}–{{ exam.end_time }}</div>
+        <div class="board-row" style="animation-delay: {{ forloop.counter0|add:'0' }}0ms">
           <div class="cell-course">{{ exam.course.code }}<span class="course-name">{{ exam.course.name }}</span></div>
           <div class="cell-time">{{ exam.date }}</div>
           <div class="cell-time">{{ exam.start_time }}–{{ exam.end_time }}</div>
@@ -30,11 +29,10 @@
       </div>
     {% else %}
       <div class="empty-state">
-        <span class="big">No matches</span>
         No exams found for &ldquo;{{ query }}&rdquo;. Check the course code and try again.
       </div>
     {% endif %}
   {% endif %}
 
-  <p class="helper-link">Have an account? <a href="{% url 'login' %}">Log in</a> to see your personal exam dashboard with seat assignments and venue maps.</p>
+  <p class="helper-link">Have an account? <a href="{% url 'login' %}">Log in</a> to see your exam dashboard.</p>
 {% endblock %}
