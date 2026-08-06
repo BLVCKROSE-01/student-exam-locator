@@ -1,6 +1,16 @@
-<h1>Log In</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Log In</button>
-</form>
+{% extends "exams/base.html" %}
+{% block title %}Log In — Exam Locator{% endblock %}
+{% block content %}
+  <div class="eyebrow">Welcome back</div>
+  <h1 class="page-title">Log in</h1>
+  <p class="page-sub">Access your personal exam dashboard.</p>
+
+  <div class="form-card">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn">Log in</button>
+    </form>
+  </div>
+  <p class="helper-link">No account? <a href="{% url 'signup' %}">Sign up</a></p>
+{% endblock %}

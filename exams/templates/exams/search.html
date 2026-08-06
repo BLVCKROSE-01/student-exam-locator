@@ -1,23 +1,40 @@
-<h1>Find Your Exam</h1>
-<form method="get">
-    <input type="text" name="q" placeholder="Enter course code" value="{{ query }}">
-    <button type="submit">Search</button>
-</form>
+{% extends "exams/base.html" %}
+{% block title %}Find Your Exam — Exam Locator{% endblock %}
+{% block content %}
+  <div class="eyebrow">Public Lookup</div>
+  <h1 class="page-title">Find your exam</h1>
+  <p class="page-sub">Search by course code to see the date, time, and room — no account needed.</p>
 
-{% if query %}
+  <form method="get" class="search-panel">
+    <input type="text" name="q" placeholder="e.g. CSBC252" value="{{ query }}" autofocus>
+    <button type="submit" class="btn">Search</button>
+  </form>
+
+  {% if query %}
     {% if exams %}
-    <table border="1" cellpadding="8">
-        <tr><th>Course</th><th>Date</th><th>Time</th><th>Venue</th></tr>
+      <div class="board">
+        <div class="board-row head">
+          <div>Course</div>
+          <div>Date</div>
+          <div>Time</div>
+          <div>Venue</div>
+        </div>
         {% for exam in exams %}
-        <tr>
-            <td>{{ exam.course.code }} - {{ exam.course.name }}</td>
-            <td>{{ exam.date }}</td>
-            <td>{{ exam.start_time }} - {{ exam.end_time }}</td>
-            <td>{{ exam.venue.building }}, Room {{ exam.venue.room }}</td>
-        </tr>
+      <div class="cell-time">{{ exam.start_time }}–{{ exam.end_time }}</div>
+          <div class="cell-course">{{ exam.course.code }}<span class="course-name">{{ exam.course.name }}</span></div>
+          <div class="cell-time">{{ exam.date }}</div>
+          <div class="cell-time">{{ exam.start_time }}–{{ exam.end_time }}</div>
+          <div class="cell-venue">{{ exam.venue.building }}<span class="tag">RM {{ exam.venue.room }}</span></div>
+        </div>
         {% endfor %}
-    </table>
+      </div>
     {% else %}
-    <p>No exams found for "{{ query }}".</p>
+      <div class="empty-state">
+        <span class="big">No matches</span>
+        No exams found for &ldquo;{{ query }}&rdquo;. Check the course code and try again.
+      </div>
     {% endif %}
-{% endif %}
+  {% endif %}
+
+  <p class="helper-link">Have an account? <a href="{% url 'login' %}">Log in</a> to see your personal exam dashboard with seat assignments and venue maps.</p>
+{% endblock %}
